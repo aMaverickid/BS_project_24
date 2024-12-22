@@ -1,14 +1,71 @@
+/* login.css */
 .Login {
-    text-align: center;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(to bottom right, #fdfbfb, #ebedee);
+  font-family: 'Arial', sans-serif;
+}
 
 .Login-header {
-    background: linear-gradient(to right, #2758ed 0%, #011655 50%, #2758ed 100%);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-  }
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 40px 50px;
+  text-align: center;
+  width: 400px;
+}
+
+.Login-header img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+.Login-header h3 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.Login-header p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.ant-input,
+.ant-input-password {
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.ant-input-affix-wrapper {
+  border-radius: 25px;
+}
+
+.ant-btn {
+  border-radius: 25px;
+  font-weight: bold;
+}
+
+.ant-btn-primary {
+  background-color: #f3a5bc;
+  border-color: #f3a5bc;
+}
+
+.ant-btn-primary:hover {
+  background-color: #f38ba0;
+  border-color: #f38ba0;
+}
+
+.ant-btn-dashed {
+  border-color: #d3d3d3;
+  color: #999;
+}
+
+.ant-btn-dashed:hover {
+  border-color: #bcbcbc;
+  color: #555;
+}

@@ -19,6 +19,15 @@ const Login = () => {
         message.error('密码不能为空！');
         return;
       }
+      // 用户名、密码要求在6字节以上
+      if (username.length < 6) {
+        message.error('用户名长度不能小于6个字符！');
+        return;
+      }
+      if (password.length < 6) {
+        message.error('密码长度不能小于6个字符！');
+        return;
+      }
       axios.post('/user/login', null, {
         params: {
           account: username,
@@ -36,8 +45,7 @@ const Login = () => {
       })
      .catch(err => {
         console.log(err);
-      });
-      // window.location.href = '/search';
+      });      
   };
 
   const handleUsername = (e) => {
@@ -52,9 +60,12 @@ const Login = () => {
     window.location.href = '/register';
   };
 
-  const handleForgetPassword = () => {
-    window.location.href = '/forget';
-  };
+  // const handleForgetPassword = () => {
+  //   window.location.href = '/forget';
+  // };
+  const handleGuestLogin = () => {
+    window.location.href = '/search';
+  }
 
   return (
     <div className = "Login">
@@ -64,9 +75,9 @@ const Login = () => {
             src={logo} 
             alt="logo"
             style={{ width: 150, height: 150, margin: '0 auto' }} />
-            <h3>欢迎来到Price-wise!</h3>
+            <h3>Goshops</h3>
 
-            <p>登录Price-wise，开始您的购物之旅！</p>
+            <p>Goshops，您的购物好帮手！</p>
 
             <Input 
             prefix = "用户名:" 
@@ -97,7 +108,7 @@ const Login = () => {
             type = "dashed" 
             size = "large" 
             style = {{ width: 300 }} 
-            onClick={handleForgetPassword}>忘记密码?</Button>
+            onClick={handleGuestLogin}>游客登录</Button>
             <p/>
             
             <Button 
