@@ -6,6 +6,7 @@ import Register from './pages/register.js';
 import Forget from './pages/forget.js';
 // import Menupage from './pages/menu.js';
 import Searchpage from './pages/search.js';
+import MenuPage from './pages/menu.js';
 // import Detail from './pages/detail.js';
 // import MyDiscount from './pages/mydiscount.js';
 
@@ -33,10 +34,11 @@ const AppRoutes = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/forget" element={<Forget />} />
           <Route path="/search" element={<Searchpage />} />
+          <Route path="/menu" element={<MenuPage />} />
           {/* <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forget" element={<Forget />} />
-          <Route path="/menu" element={<Menupage />} />
+          
           <Route path="/search" element={<Searchpage />} />
           <Route path="/detail" element={<Detail />} />
           <Route path="/mydiscount" element={<MyDiscount />} /> */}

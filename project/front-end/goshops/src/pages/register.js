@@ -47,21 +47,21 @@ const Register = () => {
       message.error('邮箱不能为空');
       return;
     }
-    axios.get('/user/send_email', {
+    axios.get('/user/sendCode', {
       params: {
         email: email
       }
     })
     .then(res => {
-      if (res.data.message === '发送成功'){
-        localStorage.setItem('reset_token', res.data.payload);
+      if (res.data.messageString === "验证码已发送至" + email) {
+        localStorage.setItem('reset_token', res.data.payLoad);
         console.log(res.data);
-        console.log(res.data.payload);
-        message.success('验证码已发送');
+        console.log(res.data.payLoad);
+        message.success('已发送');
         setTimerActive(true);
       }
       else
-        message.error(res.data.message);
+        message.error(res.data.messageString);
     })
    .catch(error => {
       console.log(error);
@@ -75,8 +75,16 @@ const Register = () => {
       message.error('用户名不能为空');
       return;
     }
+    if (username.length < 6) {
+      message.error('用户名长度不能小于6个字符');
+      return;
+    }
     if (password === '') {
       message.error('密码不能为空');
+      return;
+    }
+    if (password.length < 6) {
+      message.error('密码长度不能小于6个字符');
       return;
     }
     if (email === '') {
@@ -92,21 +100,21 @@ const Register = () => {
     }
     axios.post('/user/register', null,{
       params: {
-        account: username,
+        name: username,
         password: password,
         email: email,
         code: code,
-        jwt_value: localStorage.getItem('reset_token')
+        jwtValue: localStorage.getItem('reset_token')
       }
     })
    .then(res => {
-      if (res.data.message === "注册成功") {
-        message.success('注册成功，请返回登录页面进行登录');
+      if (res.data.messageString === "注册成功") {
+        message.success('注册成功，请登录');
         setTimeout(() => {
           window.location.href = '/login';
-        }, 1000);
+        }, 5000);
       } else {
-        message.error(res.data.message);
+        message.error(res.data.messageString);
       }
     })
    .catch(err => {
@@ -119,7 +127,7 @@ const Register = () => {
     <div className = "Login">
       <header className = "Login-header">
         <div>
-          <h3>注册您的新账号，开启购物之旅！</h3>
+          <h3>注册您的Goshops账号</h3>
           <Input 
             prefix = "用户名:" 
             size = "large" 

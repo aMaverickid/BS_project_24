@@ -30,30 +30,22 @@ const Login = () => {
       }
       axios.post('/user/login', null, {
         params: {
-          account: username,
+          name: username,
           password: password
         }
       })
      .then(res => {
-        if (res.data.message === "登录成功") {
-          localStorage.setItem('token', res.data.payload);
+        if (res.data.messageString === "登录成功") {
+          localStorage.setItem('token', res.data.payLoad);
           localStorage.setItem('username', username);
           window.location.href = '/search';
         } else {
-          message.error(res.data.message);
+          message.error(res.data.messageString);
         }
       })
      .catch(err => {
         console.log(err);
       });      
-  };
-
-  const handleUsername = (e) => {
-    setUsername(e.target.value);
-  };
-
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
   };
 
   const handleRegister = () => {
@@ -68,54 +60,57 @@ const Login = () => {
   }
 
   return (
-    <div className = "Login">
-      <header className = "Login-header">
+    <div className="Login">
+      <header className="Login-header">
         <div>
-            <img 
+          <img 
             src={logo} 
             alt="logo"
-            style={{ width: 150, height: 150, margin: '0 auto' }} />
-            <h3>Goshops</h3>
+            style={{ width: 150, height: 150, margin: '0 auto' }} 
+          />
+          <h3>Goshops</h3>
 
-            <p>Goshops，您的购物好帮手！</p>
+          <p>Goshops, Your Shopping Companion!</p>
 
-            <Input 
-            prefix = "用户名:" 
-            size = "large" 
+          <Input 
+            prefix="Username:" 
+            size="large" 
             style={{ width: 300 }}
-            onChange = {handleUsername}
-            placeholder="用户名" />
-            <p/>
-            <div>
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Enter your username" 
+          />
+          <p/>
+          <div>
             <Input.Password 
-            prefix = "密码:" 
-            size = "large" 
-            style={{ width: 300, contentAlign: 'center' }} 
-            onChange = {handlePassword}
-            onPressEnter={handleLogin}
-            placeholder="密码" />
-            </div>
-            <p/>
+              prefix="Password:" 
+              size="large" 
+              style={{ width: 300, contentAlign: 'center' }} 
+              onChange={(e) => setPassword(e.target.value)}
+              onPressEnter={handleLogin}
+              placeholder="Enter your password" 
+            />
+          </div>
+          <p/>
 
-            <Button 
+          <Button 
             onClick={handleLogin} 
             type="primary" 
             size="large" 
-            style={{ width: 300 }}>登录</Button>
-            <p/>
+            style={{ width: 300 }}>Login</Button>
+          <p/>
 
-            <Button 
-            type = "dashed" 
-            size = "large" 
-            style = {{ width: 300 }} 
-            onClick={handleGuestLogin}>游客登录</Button>
-            <p/>
-            
-            <Button 
-            type = "dashed"
-            size = "large"
-            style = {{ width: 300 }}
-            onClick={handleRegister}>注册新账户</Button>
+          <Button 
+            type="dashed" 
+            size="large" 
+            style={{ width: 300 }} 
+            onClick={handleGuestLogin}>Guest </Button>
+          <p/>
+
+          <Button 
+            type="dashed"
+            size="large"
+            style={{ width: 300 }}
+            onClick={handleRegister}>Register</Button>
         </div>
       </header>
     </div>

@@ -1,71 +1,77 @@
-/* login.css */
 .Login {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(to bottom right, #fdfbfb, #ebedee);
-  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to bottom right, #f5ebe0, #d7ccc8);
+  font-family: 'Roboto', sans-serif;
 }
 
 .Login-header {
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 15px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  padding: 40px 50px;
+  background: rgba(245, 233, 224, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  padding: 50px 60px;
   text-align: center;
-  width: 400px;
+  width: 450px;
 }
 
 .Login-header img {
-  width: 100px;
-  height: 100px;
-  margin-bottom: 20px;
+  width: 120px;
+  height: 120px;
+  margin-bottom: 25px;
 }
 
 .Login-header h3 {
-  color: #333;
-  font-size: 24px;
-  margin-bottom: 10px;
+  color: #5d4037;
+  font-size: 26px;
+  margin-bottom: 15px;
 }
 
 .Login-header p {
-  color: #666;
-  margin-bottom: 20px;
+  color: #8d6e63;
+  margin-bottom: 25px;
 }
 
 .ant-input,
 .ant-input-password {
-  border: none;
-  border-radius: 25px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #d7ccc8;
+  border-radius: 30px;
+  box-shadow: none;
+  transition: all 0.3s ease;
+}
+
+.ant-input:focus,
+.ant-input-password:focus {
+  border-color: #a1887f;
+  box-shadow: 0 0 5px rgba(161, 136, 127, 0.5);
 }
 
 .ant-input-affix-wrapper {
-  border-radius: 25px;
+  border-radius: 30px;
 }
 
 .ant-btn {
-  border-radius: 25px;
-  font-weight: bold;
+  border-radius: 30px;
+  font-weight: 600;
 }
 
 .ant-btn-primary {
-  background-color: #f3a5bc;
-  border-color: #f3a5bc;
+  background-color: #a1887f;
+  border-color: #a1887f;
 }
 
 .ant-btn-primary:hover {
-  background-color: #f38ba0;
-  border-color: #f38ba0;
+  background-color: #8d6e63;
+  border-color: #8d6e63;
 }
 
 .ant-btn-dashed {
-  border-color: #d3d3d3;
-  color: #999;
+  border-color: #d7ccc8;
+  color: #8d6e63;
 }
 
 .ant-btn-dashed:hover {
-  border-color: #bcbcbc;
-  color: #555;
+  border-color: #bcaaa4;
+  color: #5d4037;
 }
