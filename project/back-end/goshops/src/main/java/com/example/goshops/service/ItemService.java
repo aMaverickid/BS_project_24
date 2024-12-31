@@ -20,4 +20,8 @@ public class ItemService {
     public List<Item> showItems(String name) {
         return itemRepository.findItemByName(name);
     }
+
+    public Item findMinPriceItem(String name) {
+        return itemRepository.findMinPriceItemByName(name);
+    }
 }

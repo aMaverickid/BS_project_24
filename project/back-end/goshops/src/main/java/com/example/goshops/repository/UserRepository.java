@@ -29,6 +29,10 @@ public interface UserRepository {
     @Select("select * from user where name = #{name}")
     User getUserByAccount(@Param("name") String name);
 
+    // fin email by name
+    @Select("select email from user where name = #{name}")
+    String getEmailByName(@Param("name") String name);
+
     // insert
     @Insert("insert into user (name, password, email) values (#{name}, #{password}, #{email})")
     @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")

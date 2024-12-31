@@ -7,7 +7,7 @@ create table if not exists User (
     email varchar(128) not null unique
     );
 
-drop table if exists Item;
+-- drop table if exists Item;
 create table if not exists Item (
     id int primary key auto_increment,
     price double not null,
@@ -37,4 +37,11 @@ create table if not exists subscribe (
     platform varchar(255) not null,
     shop_name varchar(255) default null
 
+);
+
+create table if not exists pricehistory (
+    id int primary key auto_increment,
+    price double not null,
+    time DATETIME not null default current_timestamp,
+    description varchar(512) not null    
 );

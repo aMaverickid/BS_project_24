@@ -32,6 +32,11 @@ public class UserService {
         return userRepository.getEmailByEmail(email);
     }
 
+    public String find_email_by_name(String name) {
+        System.out.println("name: " + name);
+        return userRepository.getEmailByName(name);
+    }
+
     public User find_user_by_name(String name) {
         return userRepository.getUserByAccount(name);
     }

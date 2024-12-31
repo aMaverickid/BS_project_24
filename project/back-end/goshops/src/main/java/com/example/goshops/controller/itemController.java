@@ -68,4 +68,25 @@ public class itemController {
         items.sort(Comparator.comparing(Item::getTime).reversed());
         return ResponseEntity.ok(new APIResponse("success", 200, items));
     }
+
+    @GetMapping("/showhistory")
+    public ResponseEntity<APIResponse> showHistoryItems(@RequestParam String name) {
+        System.out.println("Received show history request: " + name);
+        List<Item> items = itemService.showItems(name);
+        if (items.size() == 0) {
+            return ResponseEntity.ok(new APIResponse("no items found", 200));
+        }
+        items.sort(Comparator.comparing(Item::getTime).reversed());
+        return ResponseEntity.ok(new APIResponse("success", 200, items));
+    }
+    
+    @GetMapping("/findminprice")
+    public ResponseEntity<APIResponse> findMinPriceItem(@RequestParam String name) {
+        System.out.println("Received find min price request: " + name);
+        Item item = itemService.findMinPriceItem(name);
+        if (item == null) {
+            return ResponseEntity.ok(new APIResponse("no items found", 200));
+        }
+        return ResponseEntity.ok(new APIResponse("success", 200, item));
+    }
 }

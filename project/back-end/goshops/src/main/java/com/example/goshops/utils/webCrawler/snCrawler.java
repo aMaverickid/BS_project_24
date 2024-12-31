@@ -30,7 +30,7 @@ public class snCrawler {
             JavascriptExecutor js = (JavascriptExecutor) driver;
             js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
             // 确保页面加载完成
-            Thread.sleep(5000);
+            Thread.sleep(7000);
 
             String pageSource = driver.getPageSource();            
 
@@ -77,7 +77,7 @@ public class snCrawler {
 
 
                 // 商品店铺
-                String shopName = liElement.select("store-name").text();
+                String shopName = liElement.select("a.store-name").text();
                 System.out.println("Shop Name:" + shopName + "\n");
                 item.setShop_name(shopName);
                 

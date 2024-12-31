@@ -25,6 +25,10 @@ public interface SubscribeRepository {
     @Delete("delete from Subscribe where name = #{name} and description = #{description}")
     void deleteSubscribee(@Param("name") String name, @Param("description") String description);
 
-    @Update("update Subscribe set price = #{price}, item_time = #{time} where description = #{description}")
+    @Update("update Subscribe set price = #{price}, time = #{time} where description = #{description}")
     void updatePriceByName(@Param("price") Double price, @Param("time") LocalDateTime time, @Param("description") String description);
+
+     // fin email by name
+     @Select("select email from user where name = #{name}")
+     String getEmailByName(@Param("name") String name);
 }

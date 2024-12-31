@@ -19,4 +19,8 @@ public interface ItemRepository {
 
     @Select("select * from item where description = #{description}")
     List<Item> findItemByName(@Param("description") String description);
+
+    // 查找价格最小一项
+    @Select("select * from item where description = #{description} order by price limit 1")
+    Item findMinPriceItemByName(@Param("description") String description);
 }
