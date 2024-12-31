@@ -1,0 +1,34 @@
+/* 定义不同分辨率下的列数 */
+.item-list {
+  display: grid;
+  gap: 20px;
+  width: 100%;
+  align-items: stretch;
+  margin-left: 20px;
+}
+
+/* 默认情况下，显示4列 */
+.item-list {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* 当屏幕宽度小于768px时，显示3列 */
+@media (max-width: 768px) {
+  .item-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* 当屏幕宽度小于576px时，显示2列 */
+@media (max-width: 576px) {
+  .item-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 当屏幕宽度小于480px时，显示1列 */
+@media (max-width: 480px) {
+  .item-list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

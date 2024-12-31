@@ -1,0 +1,18 @@
+.nordic-style {
+    font-family: 'Playfair Display', serif; /* 简约而优雅的字体 */
+    font-size: 2.5em; /* 突出显示 */
+    color: #6D4C41; /* 木质棕色 */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* 柔和阴影 */
+    letter-spacing: 0.05em; /* 字符间距 */
+    font-weight: 600; /* 加粗但不刺眼 */
+  }
+  
+  h3 {
+    font-family: 'Roboto', sans-serif; /* 整体保持简约风格 */
+    color: #3E2723; /* 深木质色，作为默认字体颜色 */
+    background-color: #F9F6F1; /* 温暖的奶白色背景 */
+    padding: 20px; /* 增加内边距，提升整体美感 */
+    border-radius: 8px; /* 圆角设计 */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 柔和投影 */
+    display: inline-block; /* 保持内容块的尺寸一致 */
+  }

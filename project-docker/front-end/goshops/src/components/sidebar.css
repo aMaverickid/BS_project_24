@@ -1,0 +1,26 @@
+.sidebar-header {
+    background: #dfd7c5;
+    border-radius: 8px;
+    margin: 16px;
+    padding: 16px;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+}
+
+.ant-layout-sider {
+    transition: all 0.3s ease;
+}
+
+.ant-menu-item:hover {
+    background: #eae4d5 !important;
+    color: #856d4d !important;
+}
+
+.ant-menu-item span {
+    font-weight: bold;
+}
+
+.ant-menu-item-selected {
+    background: #e0d8c8 !important;
+    border-left: 4px solid #856d4d !important;
+}
