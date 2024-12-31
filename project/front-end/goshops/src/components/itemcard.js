@@ -64,21 +64,22 @@ const ItemCard = ({ item }) => {
   // 获取历史价格数据
   const onShowItemHistory = (description) => {
     // 假设你有一个API可以获取历史价格数据
-    axios.get('/api/item/price-history', {
-      params: { description: description }
+    axios.get('/item/showhistory', {
+      params: { name: description }
     })
     .then(res => {
-      if (res.data.success) {
-        setPriceHistoryData(res.data.history);  // 设置历史价格数据
+      if (res.data.messageString === "success") {
+        console.log(res.data.payLoad);
+        setPriceHistoryData(res.data.payLoad);  // 设置历史价格数据
         setShowPriceHistory(true);  // 显示历史价格弹窗
-      } else {
-        setPriceHistoryData(res.data.history);  // 设置历史价格数据
+      } else {        
         setShowPriceHistory(true);  // 显示历史价格弹窗
         message.error("获取历史价格失败");
       }
     })
     .catch(error => {
       console.error(error);
+      setShowPriceHistory(true);  // 显示历史价格弹窗
       message.error("获取历史价格失败");
     });
   };
@@ -110,7 +111,7 @@ const ItemCard = ({ item }) => {
         <ResponsiveContainer width="100%" height={400}>
           <LineChart data={priceHistoryData}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" />
+            <XAxis dataKey="time" />
             <YAxis />
             <Tooltip />
             <Legend />
@@ -127,7 +128,7 @@ const ItemCard = ({ item }) => {
           onClick={onClick}
         />
         <p className="item-description" onClick={onClick}>{item.description}</p>
-        <p className="shop-name" onClick={onClick}>{item.shop_name}</p>
+        <p className="shop-name" onClick={onClick}>{item.shopName}</p>
         <div className="price-container">
           <Text strong className="price">
             ￥{item.price}

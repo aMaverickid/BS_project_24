@@ -4,6 +4,7 @@
   gap: 20px;
   width: 100%;
   align-items: stretch;
+  margin-left: 20px;
 }
 
 /* 默认情况下，显示4列 */
