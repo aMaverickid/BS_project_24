@@ -68,9 +68,9 @@ const Login = () => {
             alt="logo"
             style={{ width: 150, height: 150, margin: '0 auto' }} 
           />
-          <h3>Goshops</h3>
+          <h2>Goshops</h2>
 
-          <p>Goshops, Your Shopping Companion!</p>
+          <p>Goshops, 你的商品比价平台</p>
 
           <Input 
             prefix="Username:" 
@@ -96,21 +96,21 @@ const Login = () => {
             onClick={handleLogin} 
             type="primary" 
             size="large" 
-            style={{ width: 300 }}>Login</Button>
+            style={{ width: 300 }}>登录</Button>
           <p/>
 
           <Button 
             type="dashed" 
             size="large" 
             style={{ width: 300 }} 
-            onClick={handleGuestLogin}>Guest </Button>
+            onClick={handleGuestLogin}>游客登录 </Button>
           <p/>
 
           <Button 
             type="dashed"
             size="large"
             style={{ width: 300 }}
-            onClick={handleRegister}>Register</Button>
+            onClick={handleRegister}>注册</Button>
         </div>
       </header>
     </div>

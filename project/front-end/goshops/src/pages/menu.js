@@ -1,30 +1,69 @@
 import React, { useState, useEffect } from 'react';
-import { Input, message, List, Button, Menu, Modal} from 'antd';
-import { MenuUnfoldOutlined, MenuFoldOutlined, AppstoreTwoTone, AppstoreAddOutlined, AppstoreFilled, AppstoreOutlined} from '@ant-design/icons';
+import { Input, message, Button, Menu, Modal} from 'antd';
+import { MenuUnfoldOutlined, MenuFoldOutlined, AppstoreTwoTone, AppstoreAddOutlined, AppstoreOutlined} from '@ant-design/icons';
 import axios from 'axios';
 import './menu.css';
-
+import ItemList from '../components/itemlist';
 const { Search } = Input;
 const MenuPage = () => {
+    // 爬到的数据
+    const [data, setData] = useState([]);
+    const [filter, setFilter] = useState([]);
     const [platform, setPlatform] = useState('苏宁');
     const [sidebarVisible, setSidebarVisible] = useState(false);
     const [isLogout, setIsLogout] = useState(false);
+    const [isLoad, setisLoad] = useState(true);
     const [searchValue, setSearchValue] = useState('');
     const [newSearchValue, setNewSearchValue] = useState('');
+
     
     useEffect(() => {
-        const search = window.location.search;
-        const params = new URLSearchParams(search);
-        const searchValue = params.get('search');
-        setSearchValue(searchValue);
+        const fetchData = async () => {
+            setisLoad(true);
+            const search = window.location.search;
+            const params = new URLSearchParams(search);
+            const temp = params.get('search');
+            setSearchValue(temp);
+            // 等待查询结果以及写入数据库
+            await axios.get('/item/insert', {
+                params: {
+                    input: temp
+                }
+            })
+            .then(res => {
+                console.log(res);
+                if (res.data.messageString === "success") {                    
+                    console.log("搜索成功");
+                    console.log(res.data.payLoad);
+                    setData(res.data.payLoad);
+                }
+                else {
+                    message.error(res.data.messageString);
+                    // setTimeout(() => {
+                    //     window.location.href = '/search';
+                    // }, 2000);
+                }                
+            })
+            .catch(err => {
+                console.log(err);
+            });
+            setisLoad(false);            
+        };
+        fetchData();
     }, []);
+
+    useEffect(() => {
+        if (data != null)
+            setFilter(data.filter(item => item.platform === platform));
+    },[platform, data]);
+
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
     };
 
     const handleMySubcribe = () => {
         console.log("我的关注点击事件");
-        window.location.href = '/subcribe';
+        window.location.href = '/subscribe';
     };
     
     const handleShowLogout = () => {
@@ -70,14 +109,14 @@ const MenuPage = () => {
             icon: <AppstoreAddOutlined />,
         }, 
         {
-            label: '京东商城',
-            key: '京东',
+            label: '当当网',
+            key: '当当',
             // fancy icon
             icon: <AppstoreTwoTone/>,
         },
         {
-            label: '天猫商城',
-            key: '天猫',
+            label: '京东商城',
+            key: '京东',
             icon: <AppstoreOutlined />,
         }
     ];
@@ -160,6 +199,13 @@ const MenuPage = () => {
                 />
                 </div>
                 <Menu onClick={onClick} selectedKeys={[platform]} mode="horizontal" items={submenu} />
+                <br />
+                <div> {isLoad ? <div style={{display: 'flex', justifyContent: 'center', marginTop: '2%', marginLeft: '2%'}}>                                           
+                                  <h3>加载中，请稍候...</h3>
+                                </div> : <ItemList items={filter} />                                  
+                        }
+
+                </div>
             </div>
         </div>
       );

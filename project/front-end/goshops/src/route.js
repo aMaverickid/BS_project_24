@@ -4,10 +4,10 @@ import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Login from './pages/login.js';
 import Register from './pages/register.js';
 import Forget from './pages/forget.js';
-// import Menupage from './pages/menu.js';
 import Searchpage from './pages/search.js';
 import MenuPage from './pages/menu.js';
-// import Detail from './pages/detail.js';
+import InfoPage from './pages/info.js';
+import SubscribePage from './pages/subscribe.js';
 // import MyDiscount from './pages/mydiscount.js';
 
 // demo for react-router v6
@@ -35,13 +35,8 @@ const AppRoutes = () => {
           <Route path="/forget" element={<Forget />} />
           <Route path="/search" element={<Searchpage />} />
           <Route path="/menu" element={<MenuPage />} />
-          {/* <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/forget" element={<Forget />} />
-          
-          <Route path="/search" element={<Searchpage />} />
-          <Route path="/detail" element={<Detail />} />
-          <Route path="/mydiscount" element={<MyDiscount />} /> */}
+          <Route path="/info" element={<InfoPage />} />
+          <Route path="/subscribe" element={<SubscribePage />} />
           <Route path="*" element={<Login />} />
         </Routes>
       </Router>

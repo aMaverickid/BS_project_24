@@ -45,7 +45,7 @@ const Searchpage = () => {
 
     const handleMySubcribe = () => {
         console.log("我的关注点击事件");
-        window.location.href = '/subcribe';
+        window.location.href = '/subscribe';
     };
     
     const handleShowLogout = () => {
@@ -197,8 +197,11 @@ const Searchpage = () => {
               icon={sidebarVisible ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
             />
             <div style={{ height: "100vh" }}>
-              <div style={{ textAlign: 'center', marginTop: '5%' }}>
-                <h2>更多好价好物，尽在goshops!</h2>
+              <div style={{ textAlign: 'center', marginTop: '2%' }}>
+                <h3>
+                    更多好价好物，尽在
+                    <span class="nordic-style">Goshops</span>                    
+                </h3>
                 <p />
                 <Search
                   placeholder="商品名称"
