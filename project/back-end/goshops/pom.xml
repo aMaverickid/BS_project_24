@@ -33,12 +33,12 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>4.19.1</version>
+			<version>4.27.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-devtools-v85</artifactId>
-			<version>4.19.1</version> <!-- 替换为你的 Selenium 版本 -->
+			<artifactId>selenium-devtools-v131</artifactId>
+			<version>4.27.0</version>
 		</dependency>
 
 		<dependency>

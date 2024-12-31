@@ -39,7 +39,7 @@ public class EmailHelper {
 
             // 发送邮件
             Transport.send(message);
-            System.out.println("验证码已发送至 " + target_email);
+            System.out.println("邮件发送成功: " + message);
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);
@@ -52,7 +52,7 @@ public class EmailHelper {
         String code = String.format("%06d", random.nextInt(1000000));
 
         String encoded_code = tools.sha256(code);
-        System.out.println(encoded_code);
+        // System.out.println(encoded_code);
         String text = "【Goshops】 您的验证码是: " + code;
         String subject = "Goshops：验证码";
 

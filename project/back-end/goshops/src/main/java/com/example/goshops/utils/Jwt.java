@@ -26,8 +26,8 @@ public class Jwt {
         return JSONObject.parseObject(paraJWT(jsonWebToken).get("sub").toString()).get("email").toString();
     }
 
-    public static String paraJWT2account(String jsonWebToken) {
-        return JSONObject.parseObject(paraJWT(jsonWebToken).get("sub").toString()).get("account").toString();
+    public static String paraJWT2name(String jsonWebToken) {
+        return JSONObject.parseObject(paraJWT(jsonWebToken).get("sub").toString()).get("name").toString();
     }
 
     public static String paraJWT2id(String jsonWebToken) {
