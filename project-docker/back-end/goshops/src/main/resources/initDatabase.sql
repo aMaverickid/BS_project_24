@@ -1,6 +1,6 @@
 -- remove the table named 'User' if it exists
 -- drop table if exists User;
-create table if not exists User (
+create table if not exists user (
     id int primary key auto_increment,
     name varchar(128) not null unique,
     password varchar(128) not null,
@@ -8,7 +8,7 @@ create table if not exists User (
     );
 
 -- drop table if exists Item;
-create table if not exists Item (
+create table if not exists item (
     id int primary key auto_increment,
     price double not null,
     description varchar(512) not null,
@@ -21,7 +21,7 @@ create table if not exists Item (
 );
 
 -- drop table if exists History;
-create table if not exists History (
+create table if not exists history (
     id int primary key auto_increment,
     name varchar(128) not null,
     search_input varchar(128) not null,

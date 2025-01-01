@@ -53,41 +53,63 @@ RUN apt-get update && apt-get install -y --no-install-recommends --fix-missing \
     lsb-release \
     xdg-utils
 
-# 安装edge
-## Setup
-# RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
-# RUN install -o root -g root -m 644 microsoft.gpg /usr/share/keyrings/
-# RUN sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/edge stable main" > /etc/apt/sources.list.d/microsoft-edge-beta.list'
-# RUN rm microsoft.gpg
-# ## Install
-# RUN apt-get update
-# RUN apt-get install -y microsoft-edge-beta
+# 设置环境变量以防止交互式安装提示
+ENV DEBIAN_FRONTEND=noninteractive
+
+# 安装必要的工具和依赖
+RUN apt-get update && \
+    apt-get install -y wget gnupg unzip curl \
+        libglib2.0-0 libnss3 libatk1.0-0 libatk-bridge2.0-0 \
+        libcups2 libxkbcommon0 libx11-xcb1 libxcomposite1 \
+        libxdamage1 libxrandr2 libgbm1 libasound2 \
+        fonts-liberation libappindicator3-1 xdg-utils && \
+    rm -rf /var/lib/apt/lists/*
 
 
-# 安装 Microsoft Edge 浏览器
-RUN curl https://packages.microsoft.com/repos/edge/pool/main/m/microsoft-edge-stable/microsoft-edge-stable_131.0.2903.86-1_amd64.deb -o microsoft-edge-stable.deb && \
-    dpkg -i microsoft-edge-stable.deb && \
-    apt-get update && \
-    apt-get -f install && \
-    rm microsoft-edge-stable.deb
+# 添加 Microsoft GPG 密钥
+RUN wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | apt-key add -
 
-# 安装 msedgedriver
-RUN wget https://msedgedriver.azureedge.net/131.0.2903.87/edgedriver_linux64.zip && \
-    unzip edgedriver_linux64.zip && \
-    mv msedgedriver /usr/local/bin/ && \
-    rm edgedriver_linux64.zip
+# 添加 Microsoft Edge 仓库
+RUN echo "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main" > /etc/apt/sources.list.d/microsoft-edge.list
+
+# 更新包列表并安装 Microsoft Edge
+RUN apt-get update && \
+    apt-get install -y microsoft-edge-stable && \
+    rm -rf /var/lib/apt/lists/*
+
+# 设置 Edge 的版本（根据需要调整）
+ENV EDGE_VERSION=latest
+
+# 下载并安装对应版本的 EdgeDriver
+RUN if [ "$EDGE_VERSION" = "latest" ]; then \
+        EDGE_DRIVER_URL=$(curl -s https://msedgedriver.azureedge.net/LATEST_STABLE | tr -cd '0-9.'); \
+    else \
+        EDGE_DRIVER_URL=$EDGE_VERSION; \
+    fi && \
+    echo "Installing EdgeDriver version: $EDGE_DRIVER_URL" && \
+    wget -O /tmp/edgedriver.zip https://msedgedriver.azureedge.net/$EDGE_DRIVER_URL/edgedriver_linux64.zip && \
+    unzip /tmp/edgedriver.zip -d /usr/local/bin/ && \
+    chmod +x /usr/local/bin/msedgedriver && \
+    rm /tmp/edgedriver.zip
+
+# 创建非 root 用户以提高安全性
+RUN useradd -m appuser
 
 # 设置工作目录
 WORKDIR /app
 
-# 将构建好的 Spring Boot JAR 文件复制到容器中
+# 将 JAR 文件复制到容器中
 COPY target/goshops-0.0.1-SNAPSHOT.jar app.jar
 
-# 将 src 目录的内容复制到容器中的 /app/src 目录
-COPY src /app/src
+# 更改文件所有权为非 root 用户
+RUN chown appuser:appuser app.jar
 
-# 暴露应用的端口（通常是 8080）
+# 切换到非 root 用户
+USER appuser
+
+# 暴露应用运行的端口（根据你的配置调整端口）
 EXPOSE 8080
 
-# 运行 Spring Boot 应用
+# 启动应用
 ENTRYPOINT ["java", "-jar", "app.jar"]
+    

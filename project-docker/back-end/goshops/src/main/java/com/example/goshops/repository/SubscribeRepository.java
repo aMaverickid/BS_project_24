@@ -9,23 +9,23 @@ import java.time.LocalDateTime;
 
 @Mapper
 public interface SubscribeRepository {
-    @Select("select * from Subscribe")
+    @Select("select * from subscribe")
     List<Subscribee> findSubscribee();
 
-    @Select("select * from Subscribe where name = #{name}")
+    @Select("select * from subscribe where name = #{name}")
     List<Subscribee> findSubscribeeByName(@Param("name") String name);
 
-    @Select ("select * from Subscribe where name = #{name} and description = #{description}")
+    @Select ("select * from subscribe where name = #{name} and description = #{description}")
     List<Subscribee> findSubscribeeByNameandDescription(@Param("name") String name, @Param("description") String description);
 
-    @Insert("insert into Subscribe(name, description, price, time, platform, shop_name) values(#{name}, #{description}, #{price}, #{time}, #{platform}, #{shop_name})")
+    @Insert("insert into subscribe(name, description, price, time, platform, shop_name) values(#{name}, #{description}, #{price}, #{time}, #{platform}, #{shop_name})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     void insertNewSubscribee(Subscribee Subscribee);
 
-    @Delete("delete from Subscribe where name = #{name} and description = #{description}")
+    @Delete("delete from subscribe where name = #{name} and description = #{description}")
     void deleteSubscribee(@Param("name") String name, @Param("description") String description);
 
-    @Update("update Subscribe set price = #{price}, time = #{time} where description = #{description}")
+    @Update("update subscribe set price = #{price}, time = #{time} where description = #{description}")
     void updatePriceByName(@Param("price") Double price, @Param("time") LocalDateTime time, @Param("description") String description);
 
      // fin email by name

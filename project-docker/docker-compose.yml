@@ -1,49 +1,49 @@
-version: '3.8'
+# version: '3.8'
 
-services:
-  frontend:
-    build:
-      context: ./front-end/goshops
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-    depends_on:
-      - backend
+# services:
+#   frontend:
+#     build:
+#       context: ./front-end/goshops
+#       dockerfile: Dockerfile
+#     ports:
+#       - "3000:3000"
+#     depends_on:
+#       - backend
 
-  backend:
-    build:
-      context: ./back-end/goshops
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/${MYSQL_DATABASE}
-      - SPRING_DATASOURCE_URL=jdbc:mysql://host.docker.internal:3306/${MYSQL_DATABASE}
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
-    depends_on:
-      db:
-        condition: service_healthy
+#   backend:
+#     build:
+#       context: ./back-end/goshops
+#       dockerfile: Dockerfile
+#     ports:
+#       - "8080:8080"
+#     environment:
+#       - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/${MYSQL_DATABASE}
+#       - SPRING_DATASOURCE_URL=jdbc:mysql://host.docker.internal:3306/${MYSQL_DATABASE}
+#       - SPRING_DATASOURCE_USERNAME=root
+#       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
+#     depends_on:
+#       db:
+#         condition: service_healthy
 
-  db:
-    image: mysql:8.0
-    container_name: mysql_db
-    environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-    volumes:
-      - db_data:/var/lib/mysql    
-      # - ./back-end/goshops/src/main/resources/initDatabase.sql:/docker-entrypoint-initdb.d/init.sql
-    ports:
-      - "3307:3306"
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
-      interval: 5s
-      timeout: 10s
-      retries: 10
+#   db:
+#     image: mysql:8.0
+#     container_name: mysql_db
+#     environment:
+#       MYSQL_DATABASE: ${MYSQL_DATABASE}
+#       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+#     volumes:
+#       - db_data:/var/lib/mysql    
+#       # - ./back-end/goshops/src/main/resources/initDatabase.sql:/docker-entrypoint-initdb.d/init.sql
+#     ports:
+#       - "3307:3306"
+#     healthcheck:
+#       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+#       interval: 5s
+#       timeout: 10s
+#       retries: 10
 
-volumes:
-  db_data:
+# volumes:
+#   db_data:
 
 # services:
 #   frontend:
@@ -66,3 +66,48 @@ volumes:
 #       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
 # volumes:
 #   db_data:
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./front-end/goshops
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./back-end/goshops
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/${MYSQL_DATABASE}
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./back-end/goshops/src/main/resources/initDatabase.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3307:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+
+volumes:
+  db_data:
